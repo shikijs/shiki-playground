@@ -8,7 +8,6 @@ let highlighter: shiki.Highlighter
 export async function getHighlighter() {
   if (highlighter) return highlighter
 
-  highlighter = await shiki.getHighlighter({ themes: shiki.BUNDLED_THEMES })
-  highlighter.loadTheme
+  highlighter = await shiki.getHighlighter({ themes: ['github-light', 'github-dark'], langs: ['javascript', 'typescript']})
   return highlighter
 }

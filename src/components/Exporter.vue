@@ -28,9 +28,6 @@ export default defineComponent({
       await this.updateBgColor()
     }
   },
-  async mounted() {
-    await this.updateBgColor()
-  },
   methods: {
     async updateBgColor() {
       const hl = await getHighlighter()

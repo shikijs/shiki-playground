@@ -45,5 +45,6 @@ body {
   display: flex;
   flex-flow: row nowrap;
   overflow-y: auto;
+  height: 100%;
 }
 </style>

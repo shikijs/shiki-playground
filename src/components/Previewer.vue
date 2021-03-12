@@ -120,5 +120,6 @@ pre {
 pre code {
   font-family: 'SFMono-Regular';
   font-size: 12px;
+  white-space: pre-wrap;
 }
 </style>

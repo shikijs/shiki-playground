@@ -1,13 +1,41 @@
-import * as shiki from 'shiki'
+import {
+  setOnigasmWASM,
+  setCDN,
+  Highlighter,
+  getHighlighter as getShikiHighlighter,
+  Theme,
+  Lang
+} from 'shiki'
+import { allThemes, allLangs } from './preload'
 
-shiki.setOnigasmWASM('/shiki/onigasm.wasm')
-shiki.setCDN('/shiki/')
+setOnigasmWASM('/shiki/onigasm.wasm')
+setCDN('/shiki/')
 
-let highlighter: shiki.Highlighter
+let highlighter: Highlighter
 
 export async function getHighlighter() {
   if (highlighter) return highlighter
 
-  highlighter = await shiki.getHighlighter({ themes: ['github-light', 'github-dark'], langs: ['javascript', 'typescript']})
+  highlighter = await getShikiHighlighter({
+    themes: allThemes.filter((t) => t.loaded).map((t) => t.theme),
+    langs: allLangs.filter((l) => l.loaded).map((l) => l.lang)
+  })
+
   return highlighter
+}
+
+export async function loadTheme(t: Theme) {
+  if (!highlighter) {
+    await getHighlighter()
+  }
+
+  await highlighter.loadTheme(t)
+}
+
+export async function loadLang(l: Lang) {
+  if (!highlighter) {
+    await getHighlighter()
+  }
+
+  await highlighter.loadLanguage(l)
 }

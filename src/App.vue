@@ -29,9 +29,37 @@ export default defineComponent({
 </script>
 
 <style>
+:root {
+  --mono-font: 'SFMono-Regular', Menlo, Consolas, Monaco, Liberation Mono, 'Lucida Console', monospace;
+}
+</style>
+
+<style>
+body {
+  color: #24292e;
+  background-color: #fff;
+  --foreground: #24292e;
+  --background: #fff;
+  --focus-background: #cce5ff;
+  --hover-background: #ebf0f4;
+  --border: 1px solid #e1e4e8;
+}
+
+body.dark {
+  color: #e1e4e8;
+  background-color: #24292e;
+  --foreground: #e1e4e8;
+  --background: #24292e;
+  --focus-background: #044289;
+  --hover-background: #282e34;
+  --border: 1px solid #2f363d;
+}
+</style>
+
+<style>
 body {
   margin: 0;
-  font-family: 'SFMono-Regular';
+  font-family: var(--mono-font);
   font-size: 12px;
 }
 

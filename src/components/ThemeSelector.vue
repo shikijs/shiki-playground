@@ -79,10 +79,10 @@ export default defineComponent({
   padding: 4px 12px 4px 8px;
 }
 .theme-option:hover {
-  background-color: #eeeeee88;
+  background-color: var(--hover-background);
 }
 .theme-option.active {
-  background-color: #eee;
+  background-color: var(--focus-background);
 }
 .theme-option-empty {
   padding: 4px 12px 4px 8px;

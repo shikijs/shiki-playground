@@ -90,26 +90,30 @@ export default defineComponent({
 #previewer {
   position: relative;
   height: 100%;
-  border-left: 1px solid #eee;
+  border-left: var(--border);
 }
 #shiki-input {
   font-family: 'SFMono-Regular';
   font-size: 12px;
-  height: 100%;
-  padding-top: 4px;
-  padding-left: 16px;
+
+  height: calc(100% - 4px);
+  padding: 4px 0 0 16px;
+
   border: 0;
   outline: none;
 }
 #shiki-output {
   font-size: 12px;
+
   position: absolute;
   top: 4px;
   left: 0;
-
   padding-left: 16px;
-  height: 100%;
+  height: calc(100% - 4px);
+
   z-index: -1;
+
+  overflow-y: auto;
 }
 #shiki-output.active {
   z-index: 1;

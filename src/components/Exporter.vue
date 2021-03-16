@@ -73,7 +73,7 @@ export default defineComponent({
 
 <style>
 #exporter {
-  border-left: 1px solid #eee;
+  border-left: var(--border);
 
   flex-shrink: 0;
 

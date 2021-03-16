@@ -67,17 +67,17 @@ export default defineComponent({
   display: flex;
   flex-flow: column nowrap;
 
-  border-left: 1px solid #eee;
+  border-left: var(--border);
 }
 
 .lang-option {
   padding: 4px 12px 4px 8px;
 }
 .lang-option:hover {
-  background-color: #eeeeee88;
+  background-color: var(--hover-background);
 }
 .lang-option.active {
-  background-color: #eee;
+  background-color: var(--focus-background);
 }
 .lang-option-empty {
   padding: 4px 12px 4px 8px;

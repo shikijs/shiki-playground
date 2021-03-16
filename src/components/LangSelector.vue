@@ -33,16 +33,10 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   computed: {
     loadedLangs(): Lang[] {
-      return this.$store.state.allLangs
-        .filter((l) => l.loaded)
-        .map((l) => l.lang)
-        .sort()
+      return this.$store.state.loadedLangs
     },
     unloadedLangs(): Lang[] {
-      return this.$store.state.allLangs
-        .filter((l) => !l.loaded)
-        .map((l) => l.lang)
-        .sort()
+      return this.$store.state.unloadedLangs
     },
     activeLang(): string {
       return this.$store.state.lang
@@ -54,7 +48,7 @@ export default defineComponent({
     },
     loadAndPickLang(l: Lang) {
       this.$store.dispatch('loadAndPickLang', l)
-    },
+    }
   }
 })
 </script>

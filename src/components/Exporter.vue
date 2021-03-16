@@ -10,29 +10,18 @@ import { defineComponent } from 'vue'
 import { getSVGRenderer } from 'shiki-renderer-svg/dist/index.browser.mjs'
 import domtoimage from 'dom-to-image'
 import { saveAs } from 'file-saver'
-import { getHighlighter } from '../highlighter'
+import { highlighter } from '../highlighter'
 
 export default defineComponent({
-  data() {
-    return {
-      bgColor: ''
-    }
-  },
   computed: {
     activeTheme(): string {
       return this.$store.state.theme
-    }
-  },
-  watch: {
-    async activeTheme() {
-      await this.updateBgColor()
+    },
+    bgColor() {
+      return this.$store.state.bgColor
     }
   },
   methods: {
-    async updateBgColor() {
-      const hl = await getHighlighter()
-      this.bgColor = hl.getBackgroundColor(this.activeTheme)
-    },
     saveToImage() {
       const node = document.querySelector('.shiki')!
 
@@ -52,7 +41,6 @@ export default defineComponent({
         })
     },
     async saveToSVG() {
-      const hl = await getHighlighter()
       const svgRenderer = await getSVGRenderer({
         bg: '#2E3440',
         fontFamily: 'SFMono-Regular',
@@ -62,7 +50,7 @@ export default defineComponent({
       })
 
       const svgOut = svgRenderer.renderToSVG(
-        hl.codeToThemedTokens(this.$store.state.code, this.$store.state.lang, this.activeTheme),
+        highlighter.codeToThemedTokens(this.$store.state.code, this.$store.state.lang, this.activeTheme),
         { bg: this.bgColor }
       )
       saveAs(new Blob([svgOut], { type: 'text/plain;charset=utf-8' }), 'shiki.svg')
@@ -74,6 +62,7 @@ export default defineComponent({
 <style>
 #exporter {
   border-left: var(--border);
+  border-right: var(--border);
 
   flex-shrink: 0;
 
@@ -87,6 +76,6 @@ export default defineComponent({
   padding: 4px 12px 4px 8px;
 }
 .export-option:hover {
-  background-color: #eeeeee88;
+  background-color: var(--hover-background);
 }
 </style>

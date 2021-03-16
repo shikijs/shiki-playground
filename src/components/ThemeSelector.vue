@@ -1,5 +1,5 @@
 <template>
-  <div id="theme-selector" @mouseout="previewTheme('')">
+  <div id="theme-selector" @mouseout="loadAndPickTheme(activeTheme)">
     <div class="theme-option-empty">--- loaded ---</div>
 
     <div
@@ -7,8 +7,9 @@
       :key="t"
       class="theme-option"
       :class="{ active: t === activeTheme }"
-      @click="pickTheme(t)"
+      @click="loadAndPickTheme(t)"
       @mouseover="previewTheme(t)"
+      @mouseout="previewTheme('')"
     >
       {{ t }}
     </div>
@@ -34,16 +35,10 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   computed: {
     loadedThemes(): Theme[] {
-      return this.$store.state.allThemes
-        .filter((t) => t.loaded)
-        .map((t) => t.theme)
-        .sort()
+      return this.$store.state.loadedThemes
     },
     unloadedThemes(): Theme[] {
-      return this.$store.state.allThemes
-        .filter((t) => !t.loaded)
-        .map((t) => t.theme)
-        .sort()
+      return this.$store.state.unloadedThemes
     },
     activeTheme(): string {
       return this.$store.state.theme
@@ -53,14 +48,11 @@ export default defineComponent({
     }
   },
   methods: {
-    pickTheme(t: string) {
-      this.$store.commit('changeTheme', t)
-    },
     loadAndPickTheme(t: string) {
       this.$store.dispatch('loadAndPickTheme', t)
     },
     previewTheme(t: string) {
-      this.$store.commit('changePreviewTheme', t)
+      this.$store.dispatch('pickPreviewTheme', t)
     }
   }
 })

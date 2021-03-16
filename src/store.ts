@@ -1,40 +1,62 @@
-import { Lang, Theme } from 'shiki'
+import { BUNDLED_LANGUAGES, BUNDLED_THEMES, Lang, Theme } from 'shiki'
 import { createStore } from 'vuex'
-import { loadLang, loadTheme } from './highlighter'
-import { allLangs, allThemes } from './preload'
+import { highlighter } from './highlighter'
+import { preloadedLangs, preloadedThemes } from './preload'
 
 export interface State {
-  allThemes: { theme: Theme; loaded: boolean }[]
-  allLangs: { lang: Lang; loaded: boolean }[]
+  loadedThemes: Theme[]
+  unloadedThemes: Theme[]
+  loadedLangs: Lang[]
+  unloadedLangs: Lang[]
   theme: string
   previewTheme: string
   lang: string
   code: string
+  fgColor: string
+  bgColor: string
 }
 
 export const store = createStore<State>({
   state() {
     return {
-      allThemes,
-      allLangs,
-      theme: 'github-light',
-      previewTheme: 'github-light',
-      lang: 'javascript',
-      code: ''
+      loadedThemes: preloadedThemes,
+      unloadedThemes: (BUNDLED_THEMES as Theme[]).filter(
+        (t) => !preloadedThemes.includes(t as Theme)
+      ),
+      loadedLangs: preloadedLangs,
+      unloadedLangs: BUNDLED_LANGUAGES.map((l) => l.id as Lang).filter(
+        (l) => !preloadedLangs.includes(l as Lang)
+      ),
+      theme: '',
+      previewTheme: '',
+      lang: '',
+      code: '',
+      fgColor: '',
+      bgColor: ''
     }
   },
   mutations: {
     loadTheme(state, theme) {
-      state.allThemes.find((t) => t.theme === theme)!.loaded = true
+      if (!state.loadedThemes.includes(theme)) {
+        state.loadedThemes.push(theme)
+      }
+      state.unloadedThemes = state.unloadedThemes.filter((t) => t !== theme)
     },
-    changeTheme(state, t) {
+    pickTheme(state, t) {
       state.theme = t
+      state.fgColor = highlighter.getForegroundColor(t)
+      state.bgColor = highlighter.getBackgroundColor(t)
     },
-    changePreviewTheme(state, t) {
+    pickPreviewTheme(state, t) {
       state.previewTheme = t
+      state.fgColor = highlighter.getForegroundColor(t)
+      state.bgColor = highlighter.getBackgroundColor(t)
     },
     loadLang(state, lang) {
-      state.allLangs.find((l) => l.lang === lang)!.loaded = true
+      if (!state.loadedLangs.includes(lang)) {
+        state.loadedLangs.push(lang)
+      }
+      state.unloadedLangs = state.unloadedLangs.filter((l) => l !== lang)
     },
     changeLang(state, l) {
       state.lang = l
@@ -44,13 +66,23 @@ export const store = createStore<State>({
     }
   },
   actions: {
+    async pickTheme(ctx, t) {
+      ctx.commit('pickTheme', t)
+    },
     async loadAndPickTheme(ctx, t) {
-      await loadTheme(t)
+      await highlighter.loadTheme(t)
       ctx.commit('loadTheme', t)
-      ctx.commit('changeTheme', t)
+
+      await ctx.dispatch('pickTheme', t)
+    },
+    async pickPreviewTheme(ctx, t) {
+      if (t !== '') {
+        await highlighter.loadTheme(t)
+      }
+      ctx.commit('pickPreviewTheme', t)
     },
     async loadAndPickLang(ctx, l) {
-      await loadLang(l)
+      await highlighter.loadLanguage(l)
       ctx.commit('loadLang', l)
       ctx.commit('changeLang', l)
     }

@@ -1,5 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import { initHighlighter } from './highlighter'
 import { store } from './store'
 
-createApp(App).use(store).mount('#app')
+initHighlighter().then(() => {
+  createApp(App).use(store).mount('#app')
+})

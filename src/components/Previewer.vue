@@ -13,8 +13,8 @@
 </template>
 
 <script lang="ts">
-import { getHighlighter } from '../highlighter'
 import { defineComponent } from 'vue'
+import { highlighter } from '../highlighter'
 import { initRawCode } from '../rawCode'
 
 export default defineComponent({
@@ -23,9 +23,7 @@ export default defineComponent({
       showPreview: false,
       rawCode: initRawCode,
       highlightedCode: '',
-      hl: undefined,
-      fgColor: '',
-      bgColor: ''
+      hl: undefined
     }
   },
   computed: {
@@ -40,6 +38,12 @@ export default defineComponent({
     },
     activePreviewTheme(): string {
       return this.$store.state.previewTheme
+    },
+    fgColor() {
+      return this.$store.state.fgColor
+    },
+    bgColor() {
+      return this.$store.state.bgColor
     }
   },
   watch: {
@@ -57,21 +61,25 @@ export default defineComponent({
     }
   },
   async mounted() {
+    this.$store.dispatch('loadAndPickLang', 'javascript')
+
+    if (window.__theme === 'dark') {
+      this.$store.dispatch('loadAndPickTheme', 'github-dark')
+    } else {
+      this.$store.dispatch('loadAndPickTheme', 'github-light')
+    }
+
     this.$store.commit('changeCode', initRawCode)
     await this.updateHighlighter()
     this.showPreview = true
   },
   methods: {
     async updateHighlighter() {
-      const hl = await getHighlighter()
-
       const themeToShow = this.activePreviewTheme !== '' ? this.activePreviewTheme : this.activeTheme
 
-      this.highlightedCode = hl.codeToHtml(this.$refs.cc.value, this.activeLang, themeToShow)
-      this.fgColor = hl.getForegroundColor(themeToShow)
-      this.bgColor = hl.getBackgroundColor(themeToShow)
+      this.highlightedCode = highlighter.codeToHtml((this.$refs as any).cc.value, this.activeLang, themeToShow)
     },
-    async onKeydown(ev) {
+    async onKeydown(ev: KeyboardEvent) {
       if (ev.ctrlKey && ev.key === 'Enter') {
         this.showPreview = !this.showPreview
         await this.updateHighlighter()
@@ -80,7 +88,7 @@ export default defineComponent({
     },
     hidePreview() {
       this.showPreview = false
-      this.$refs.cc.focus()
+      ;(this.$refs as any).cc.focus()
     }
   }
 })

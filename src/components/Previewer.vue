@@ -1,12 +1,12 @@
 <template>
-  <div id="previewer" @keydown="onKeydown">
+  <div id="previewer">
     <textarea
       id="shiki-input"
       cols="80"
       v-model="rawCode"
       ref="cc"
       :style="{ color: fgColor, backgroundColor: bgColor }"
-      @mouseout="() => (this.showPreview = true)"
+      @mouseout="refreshPreview"
     />
     <div id="shiki-output" :class="{ active: showPreview }" v-html="code" @click="hidePreview"></div>
   </div>
@@ -79,12 +79,9 @@ export default defineComponent({
 
       this.highlightedCode = highlighter.codeToHtml((this.$refs as any).cc.value, this.activeLang, themeToShow)
     },
-    async onKeydown(ev: KeyboardEvent) {
-      if (ev.ctrlKey && ev.key === 'Enter') {
-        this.showPreview = !this.showPreview
-        await this.updateHighlighter()
-        ev.preventDefault()
-      }
+    async refreshPreview() {
+      this.showPreview = true
+      await this.updateHighlighter()
     },
     hidePreview() {
       this.showPreview = false

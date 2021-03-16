@@ -9,4 +9,4 @@ import { BUNDLED_LANGUAGES, BUNDLED_THEMES, Lang, Theme } from 'shiki'
 export const preloadedThemes: Theme[] = ['github-light', 'github-dark']
 export const preloadedLangs: Lang[] = ['javascript']
 
-export const asyncLoadedLangs: Lang[] = ['tsx', 'c', 'go', 'html', 'css', 'python', 'ruby', 'java']
+export const asyncLangsToLoad: Lang[] = ['tsx', 'c', 'go', 'html', 'css', 'python', 'ruby', 'java']

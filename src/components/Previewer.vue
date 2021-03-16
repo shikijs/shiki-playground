@@ -15,12 +15,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { highlighter } from '../highlighter'
+import { asyncLangsToLoad } from '../preload'
 import { initRawCode } from '../rawCode'
 
 export default defineComponent({
   data() {
     return {
-      showPreview: false,
+      showPreview: true,
       rawCode: initRawCode,
       highlightedCode: '',
       hl: undefined
@@ -61,6 +62,8 @@ export default defineComponent({
     }
   },
   async mounted() {
+    this.$store.commit('changeCode', initRawCode)
+
     this.$store.dispatch('loadAndPickLang', 'javascript')
 
     if (window.__theme === 'dark') {
@@ -69,9 +72,9 @@ export default defineComponent({
       this.$store.dispatch('loadAndPickTheme', 'github-light')
     }
 
-    this.$store.commit('changeCode', initRawCode)
-    await this.updateHighlighter()
-    this.showPreview = true
+    for (let l of asyncLangsToLoad) {
+      this.$store.dispatch('loadLang', l)
+    }
   },
   methods: {
     async updateHighlighter() {

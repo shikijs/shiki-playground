@@ -1,7 +1,7 @@
 import { BUNDLED_LANGUAGES, BUNDLED_THEMES, Lang, Theme } from 'shiki'
 import { createStore } from 'vuex'
 import { highlighter } from './highlighter'
-import { preloadedLangs, preloadedThemes } from './preload'
+import { asyncLoadedLangs, preloadedLangs, preloadedThemes } from './preload'
 
 export interface State {
   loadedThemes: Theme[]
@@ -81,9 +81,12 @@ export const store = createStore<State>({
       }
       ctx.commit('pickPreviewTheme', t)
     },
-    async loadAndPickLang(ctx, l) {
+    async loadLang(ctx, l) {
       await highlighter.loadLanguage(l)
       ctx.commit('loadLang', l)
+    },
+    async loadAndPickLang(ctx, l) {
+      await ctx.dispatch('loadLang', l)
       ctx.commit('changeLang', l)
     }
   }

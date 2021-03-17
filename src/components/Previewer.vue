@@ -1,14 +1,16 @@
 <template>
-  <div id="previewer">
-    <textarea
-      id="shiki-input"
-      cols="80"
-      v-model="rawCode"
-      ref="cc"
-      :style="{ color: fgColor, backgroundColor: bgColor }"
-      @mouseout="refreshPreview"
-    />
-    <div id="shiki-output" :class="{ active: showPreview }" v-html="code" @click="hidePreview"></div>
+  <div 
+    id="previewer"
+    :style="{ color: fgColor, backgroundColor: bgColor }"
+  >
+    <div id="preview-container">
+      <div id="shiki-output" v-html="code"></div>
+      <textarea
+        id="shiki-input"
+        v-model="rawCode"
+        ref="cc"
+      />
+    </div>
   </div>
 </template>
 
@@ -50,6 +52,7 @@ export default defineComponent({
   watch: {
     async rawCode(c) {
       this.$store.commit('changeCode', c)
+      this.refreshPreview()
     },
     async activeLang() {
       await this.updateHighlighter()
@@ -99,39 +102,40 @@ export default defineComponent({
   position: relative;
   height: 100%;
   border-left: var(--border);
+  overflow: auto;
+}
+#previewer-container {
+  width: auto;
+  position: absolute;
+}
+#shiki-input, #shiki-output {
+  line-height: 1.3em;
+  font-size: 12px;
+  min-height: 100%;
+  padding: 4px 16px;
+  height: calc(100% - 4px);
+  font-family: var(--mono-font);
+  white-space: pre-wrap;
 }
 #shiki-input {
-  font-family: 'SFMono-Regular';
-  font-size: 12px;
-
-  height: calc(100% - 4px);
-  padding: 4px 0 0 16px;
-
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  resize: none;
+  caret-color: white;
+  color: transparent;
+  background-color: transparent;
   border: 0;
   outline: none;
-}
-#shiki-output {
-  font-size: 12px;
-
-  position: absolute;
-  top: 4px;
-  left: 0;
-  padding-left: 16px;
-  height: calc(100% - 4px);
-
-  z-index: -1;
-
-  overflow-y: auto;
-}
-#shiki-output.active {
-  z-index: 1;
+  width: 100%;
 }
 pre {
   margin: 0;
 }
 pre code {
-  font-family: 'SFMono-Regular';
+  font-family: var(--mono-font);
   font-size: 12px;
-  white-space: pre-wrap;
 }
 </style>

@@ -30,7 +30,7 @@ export default defineComponent({
 
 <style>
 :root {
-  --mono-font: 'SFMono-Regular', Menlo, Consolas, Monaco, Liberation Mono, 'Lucida Console', monospace;
+  --mono-font: 'Input Mono', 'SFMono-Regular', Menlo, Consolas, Monaco, Liberation Mono, 'Lucida Console', monospace;
 }
 </style>
 
@@ -70,9 +70,11 @@ body {
   overflow-y: hidden;
 }
 .container {
-  display: flex;
-  flex-flow: row nowrap;
+  display: grid;
+  grid-template-columns: max-content max-content auto max-content;
   overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
   height: 100%;
 }
 </style>

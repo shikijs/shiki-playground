@@ -8,6 +8,10 @@
       <textarea
         id="shiki-input"
         v-model="rawCode"
+        autocomplete="false"
+        autocapitalize="false"
+        spellcheck="false"
+        autocorrect="false"
         ref="cc"
       />
     </div>

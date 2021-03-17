@@ -43,10 +43,10 @@ export default defineComponent({
     async saveToSVG() {
       const svgRenderer = await getSVGRenderer({
         bg: '#2E3440',
-        fontFamily: 'SFMono-Regular',
+        fontFamily: 'Input Mono',
         fontSize: 12,
         bgSideCharPadding: 2,
-        bgVerticalCharPadding: 0.6
+        bgVerticalCharPadding: 1
       })
 
       const svgOut = svgRenderer.renderToSVG(

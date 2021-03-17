@@ -104,16 +104,16 @@ export default defineComponent({
   border-left: var(--border);
   overflow: auto;
 }
-#previewer-container {
-  width: auto;
+#preview-container {
   position: absolute;
+  width: auto;
 }
 #shiki-input, #shiki-output {
   line-height: 1.3em;
   font-size: 12px;
   min-height: 100%;
-  padding: 4px 16px;
-  height: calc(100% - 4px);
+  padding: 8px;
+  height: 100%;
   font-family: var(--mono-font);
   white-space: pre-wrap;
 }

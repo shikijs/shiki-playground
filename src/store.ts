@@ -1,7 +1,7 @@
 import { BUNDLED_LANGUAGES, BUNDLED_THEMES, Lang, Theme } from 'shiki'
 import { createStore } from 'vuex'
 import { highlighter } from './highlighter'
-import { asyncLoadedLangs, preloadedLangs, preloadedThemes } from './preload'
+import { preloadedLangs, preloadedThemes } from './preload'
 
 export interface State {
   loadedThemes: Theme[]

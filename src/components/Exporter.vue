@@ -32,7 +32,6 @@ export default defineComponent({
           style: {
             transform: 'scale(2)',
             'transform-origin': 'top left',
-            padding: 0,
             background: this.bgColor
           }
         })

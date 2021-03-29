@@ -135,7 +135,8 @@ export default defineComponent({
   width: 100%;
 }
 #shiki-output {
-  pointer-events: none
+  display: inline-block;
+  pointer-events: none;
 }
 pre {
   margin: 0;
@@ -144,5 +145,8 @@ pre code {
   font-family: var(--mono-font);
   font-size: 12px;
   white-space: pre-wrap;
+}
+.shiki {
+  display: inline-block;
 }
 </style>

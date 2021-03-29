@@ -91,7 +91,7 @@ export const store = createStore<State>({
         const text = await res.text()
         ctx.commit('changeCode', text)
       } else {
-        ctx.commit('changeCode', '')
+        ctx.commit('changeCode', '// type your code')
       }
       ctx.commit('changeLang', langId)
     },
@@ -101,7 +101,7 @@ export const store = createStore<State>({
     },
     async loadAndPickLang(ctx, l) {
       await ctx.dispatch('loadLang', l)
-      ctx.commit('changeLang', l)
+      await ctx.dispatch('changeLang', l)
     }
   }
 })

@@ -91,6 +91,7 @@ export default defineComponent({
     async updateHighlighter() {
       const themeToShow = this.activePreviewTheme !== '' ? this.activePreviewTheme : this.activeTheme
 
+      // console.log(this.code)
       this.highlightedCode = highlighter.codeToHtml(this.code, this.activeLang, themeToShow)
     },
     async refreshPreview() {

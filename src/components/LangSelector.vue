@@ -7,7 +7,9 @@
       :key="l"
       class="lang-option"
       :class="{ active: l === activeLang }"
-      @click="pickLang(l)"
+      @click="changeLang(l)"
+      @mouseover="previewLang(l)"
+      @mouseout="previewLang('')"
     >
       {{ l }}
     </div>
@@ -19,7 +21,7 @@
       :key="l"
       class="lang-option"
       :class="{ active: l === activeLang }"
-      @click="loadAndPickLang(l)"
+      @click="loadAndchangeLang(l)"
     >
       {{ l }}
     </div>
@@ -43,11 +45,14 @@ export default defineComponent({
     }
   },
   methods: {
-    pickLang(l: string) {
+    changeLang(l: string) {
       this.$store.dispatch('changeLang', l)
     },
-    loadAndPickLang(l: Lang) {
-      this.$store.dispatch('loadAndPickLang', l)
+    loadAndchangeLang(l: Lang) {
+      this.$store.dispatch('loadAndchangeLang', l)
+    },
+    previewLang(l: string) {
+      this.$store.dispatch('changePreviewLang', l)
     }
   }
 })

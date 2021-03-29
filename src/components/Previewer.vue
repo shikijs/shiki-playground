@@ -26,14 +26,11 @@ export default defineComponent({
     code(): string {
       return this.$store.state.code
     },
-    activeLang(): string {
-      return this.$store.state.lang
+    langToShow(): string {
+      return this.$store.state.previewLang ||  this.$store.state.lang
     },
-    activeTheme(): string {
-      return this.$store.state.theme
-    },
-    activePreviewTheme(): string {
-      return this.$store.state.previewTheme
+    themeToShow(): string {
+      return this.$store.state.previewTheme || this.$store.state.theme
     },
     fgColor() {
       return this.$store.state.fgColor
@@ -51,20 +48,17 @@ export default defineComponent({
       this.$store.commit('changeCode', c)
       this.refreshPreview()
     },
-    async activeLang() {
+    async langToShow() {
       await this.updateHighlighter()
     },
-    async activeTheme() {
+    async themeToShow() {
       await this.updateHighlighter()
     },
-    async activePreviewTheme() {
-      await this.updateHighlighter()
-    }
   },
   async mounted() {
-    await this.$store.dispatch('loadAndPickLang', 'javascript')
+    await this.$store.dispatch('loadAndchangeLang', 'javascript')
 
-    const langRegistration = BUNDLED_LANGUAGES.filter((l) => l.id === this.activeLang)[0]
+    const langRegistration = BUNDLED_LANGUAGES.filter((l) => l.id === this.langToShow)[0]
 
     if (langRegistration?.samplePath) {
       const res = await fetch(`/shiki/samples/${langRegistration.samplePath}`)
@@ -74,9 +68,9 @@ export default defineComponent({
     }
 
     if (window.__theme === 'dark') {
-      this.$store.dispatch('loadAndPickTheme', 'github-dark')
+      this.$store.dispatch('loadAndchangeTheme', 'github-dark')
     } else {
-      this.$store.dispatch('loadAndPickTheme', 'github-light')
+      this.$store.dispatch('loadAndchangeTheme', 'github-light')
     }
 
     for (let l of asyncLangsToLoad) {
@@ -85,9 +79,7 @@ export default defineComponent({
   },
   methods: {
     async updateHighlighter() {
-      const themeToShow = this.activePreviewTheme !== '' ? this.activePreviewTheme : this.activeTheme
-
-      this.highlightedCode = highlighter.codeToHtml(this.code, this.activeLang, themeToShow)
+      this.highlightedCode = highlighter.codeToHtml(this.code, this.langToShow, this.themeToShow)
     },
     async refreshPreview() {
       this.showPreview = true
@@ -109,16 +101,16 @@ export default defineComponent({
   overflow: auto;
 }
 #previewer-container {
-  width: auto;
   position: absolute;
+  width: auto;
 }
 #shiki-input,
 #shiki-output {
   line-height: 1.3em;
   font-size: 12px;
-  min-height: 100%;
   padding: 4px 16px;
-  height: calc(100% - 4px);
+  height: calc(100% - 16px);
+  padding: 8px;
   font-family: var(--mono-font);
 }
 #shiki-input {

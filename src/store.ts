@@ -11,6 +11,7 @@ export interface State {
   theme: string
   previewTheme: string
   lang: string
+  previewLang: string
   code: string
   fgColor: string
   bgColor: string
@@ -30,6 +31,7 @@ export const store = createStore<State>({
       theme: '',
       previewTheme: '',
       lang: '',
+      previewLang: '',
       code: '',
       fgColor: '',
       bgColor: ''
@@ -42,12 +44,12 @@ export const store = createStore<State>({
       }
       state.unloadedThemes = state.unloadedThemes.filter((t) => t !== theme)
     },
-    pickTheme(state, t) {
+    changeTheme(state, t) {
       state.theme = t
       state.fgColor = highlighter.getForegroundColor(t)
       state.bgColor = highlighter.getBackgroundColor(t)
     },
-    pickPreviewTheme(state, t) {
+    changePreviewTheme(state, t) {
       state.previewTheme = t
       state.fgColor = highlighter.getForegroundColor(t)
       state.bgColor = highlighter.getBackgroundColor(t)
@@ -61,33 +63,34 @@ export const store = createStore<State>({
     changeLang(state, l) {
       state.lang = l
     },
+    changePreviewLang(state, l) {
+      state.previewLang = l
+    },
     changeCode(state, c) {
       state.code = c
     }
   },
   actions: {
-    async pickTheme(ctx, t) {
-      ctx.commit('pickTheme', t)
+    async changeTheme(ctx, t) {
+      ctx.commit('changeTheme', t)
     },
-    async loadAndPickTheme(ctx, t) {
+    async loadAndchangeTheme(ctx, t) {
       await highlighter.loadTheme(t)
       ctx.commit('loadTheme', t)
 
-      await ctx.dispatch('pickTheme', t)
+      await ctx.dispatch('changeTheme', t)
     },
-    async pickPreviewTheme(ctx, t) {
+    async changePreviewTheme(ctx, t) {
       if (t !== '') {
         await highlighter.loadTheme(t)
       }
-      ctx.commit('pickPreviewTheme', t)
+      ctx.commit('changePreviewTheme', t)
     },
     async changeLang(ctx, langId) {
-      const langRegistration = BUNDLED_LANGUAGES.filter(
-        (l) => l.id === langId
-      )[0]
+      const samplePath = getLangSamplePath(langId)
 
-      if (langRegistration?.samplePath) {
-        const res = await fetch(`/shiki/samples/${langRegistration.samplePath}`)
+      if (samplePath) {
+        const res = await fetch(`/shiki/samples/${samplePath}`)
         const text = await res.text()
         ctx.commit('changeCode', text)
       } else {
@@ -99,9 +102,31 @@ export const store = createStore<State>({
       await highlighter.loadLanguage(l)
       ctx.commit('loadLang', l)
     },
-    async loadAndPickLang(ctx, l) {
+    async loadAndchangeLang(ctx, l) {
       await ctx.dispatch('loadLang', l)
       await ctx.dispatch('changeLang', l)
+    },
+    async changePreviewLang(ctx, l) {
+      if (l !== '') {
+        await highlighter.loadLanguage(l)
+
+        const samplePath = getLangSamplePath(l)
+
+        if (samplePath) {
+          const res = await fetch(`/shiki/samples/${samplePath}`)
+          const text = await res.text()
+          ctx.commit('changeCode', text)
+        } else {
+          ctx.commit('changeCode', '// type your code')
+        }
+      }
+      ctx.commit('changePreviewLang', l)
     }
   }
 })
+
+function getLangSamplePath(langId: Lang) {
+  const langRegistration = BUNDLED_LANGUAGES.filter((l) => l.id === langId)[0]
+
+  return langRegistration?.samplePath
+}

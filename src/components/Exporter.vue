@@ -73,6 +73,7 @@ export default defineComponent({
 }
 .export-option {
   padding: 4px 12px 4px 8px;
+  cursor: pointer;
 }
 .export-option:hover {
   background-color: var(--hover-background);

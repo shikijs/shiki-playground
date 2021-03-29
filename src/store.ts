@@ -119,6 +119,16 @@ export const store = createStore<State>({
         } else {
           ctx.commit('changeCode', '// type your code')
         }
+      } else {
+        const samplePath = getLangSamplePath(ctx.state.lang as Lang)
+
+        if (samplePath) {
+          const res = await fetch(`/shiki/samples/${samplePath}`)
+          const text = await res.text()
+          ctx.commit('changeCode', text)
+        } else {
+          ctx.commit('changeCode', '// type your code')
+        }
       }
       ctx.commit('changePreviewLang', l)
     }

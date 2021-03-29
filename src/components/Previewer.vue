@@ -8,28 +8,28 @@
       :style="{ color: fgColor, backgroundColor: bgColor }"
       @mouseout="refreshPreview"
     />
-    <div id="shiki-output" :class="{ active: showPreview }" v-html="code" @click="hidePreview"></div>
+    <div id="shiki-output" :class="{ active: showPreview }" v-html="highlightedCode" @click="hidePreview"></div>
   </div>
 </template>
 
 <script lang="ts">
+import { BUNDLED_LANGUAGES } from 'shiki'
 import { defineComponent } from 'vue'
 import { highlighter } from '../highlighter'
 import { asyncLangsToLoad } from '../preload'
-import { initRawCode } from '../rawCode'
 
 export default defineComponent({
   data() {
     return {
       showPreview: true,
-      rawCode: initRawCode,
+      rawCode: '',
       highlightedCode: '',
       hl: undefined
     }
   },
   computed: {
     code(): string {
-      return `${this.highlightedCode}`
+      return this.$store.state.code
     },
     activeLang(): string {
       return this.$store.state.lang
@@ -48,6 +48,10 @@ export default defineComponent({
     }
   },
   watch: {
+    async code(c) {
+      this.rawCode = c
+      await this.updateHighlighter()
+    },
     async rawCode(c) {
       this.$store.commit('changeCode', c)
     },
@@ -62,9 +66,16 @@ export default defineComponent({
     }
   },
   async mounted() {
-    this.$store.commit('changeCode', initRawCode)
+    await this.$store.dispatch('loadAndPickLang', 'javascript')
 
-    this.$store.dispatch('loadAndPickLang', 'javascript')
+    const langRegistration = BUNDLED_LANGUAGES.filter((l) => l.id === this.activeLang)[0]
+
+    if (langRegistration?.samplePath) {
+      const res = await fetch(`/shiki/samples/${langRegistration.samplePath}`)
+      const text = await res.text()
+      this.rawCode = text
+      this.$store.commit('changeCode', text)
+    }
 
     if (window.__theme === 'dark') {
       this.$store.dispatch('loadAndPickTheme', 'github-dark')
@@ -73,14 +84,14 @@ export default defineComponent({
     }
 
     for (let l of asyncLangsToLoad) {
-      this.$store.dispatch('loadLang', l)
+      await this.$store.dispatch('loadLang', l)
     }
   },
   methods: {
     async updateHighlighter() {
       const themeToShow = this.activePreviewTheme !== '' ? this.activePreviewTheme : this.activeTheme
 
-      this.highlightedCode = highlighter.codeToHtml((this.$refs as any).cc.value, this.activeLang, themeToShow)
+      this.highlightedCode = highlighter.codeToHtml(this.code, this.activeLang, themeToShow)
     },
     async refreshPreview() {
       this.showPreview = true

@@ -44,7 +44,7 @@ export default defineComponent({
   },
   methods: {
     pickLang(l: string) {
-      this.$store.commit('changeLang', l)
+      this.$store.dispatch('changeLang', l)
     },
     loadAndPickLang(l: Lang) {
       this.$store.dispatch('loadAndPickLang', l)

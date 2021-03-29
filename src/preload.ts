@@ -1,4 +1,4 @@
-import { BUNDLED_LANGUAGES, BUNDLED_THEMES, Lang, Theme } from 'shiki'
+import { Lang, Theme } from 'shiki'
 
 /**
  * - First paint: load JS with GH Dark/Light theme
@@ -9,4 +9,13 @@ import { BUNDLED_LANGUAGES, BUNDLED_THEMES, Lang, Theme } from 'shiki'
 export const preloadedThemes: Theme[] = ['github-light', 'github-dark']
 export const preloadedLangs: Lang[] = ['javascript']
 
-export const asyncLangsToLoad: Lang[] = ['tsx', 'c', 'go', 'html', 'css', 'python', 'ruby', 'java']
+export const asyncLangsToLoad: Lang[] = [
+  'css',
+  'html', // fix embedded highlighting later
+  'python',
+  'c',
+  'go',
+  'ruby',
+  'java',
+  'tsx' // remove later
+]

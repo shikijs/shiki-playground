@@ -81,6 +81,20 @@ export const store = createStore<State>({
       }
       ctx.commit('pickPreviewTheme', t)
     },
+    async changeLang(ctx, langId) {
+      const langRegistration = BUNDLED_LANGUAGES.filter(
+        (l) => l.id === langId
+      )[0]
+
+      if (langRegistration?.samplePath) {
+        const res = await fetch(`/shiki/samples/${langRegistration.samplePath}`)
+        const text = await res.text()
+        ctx.commit('changeCode', text)
+      } else {
+        ctx.commit('changeCode', '')
+      }
+      ctx.commit('changeLang', langId)
+    },
     async loadLang(ctx, l) {
       await highlighter.loadLanguage(l)
       ctx.commit('loadLang', l)

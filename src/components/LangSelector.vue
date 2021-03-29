@@ -66,6 +66,7 @@ export default defineComponent({
 
 .lang-option {
   padding: 4px 12px 4px 8px;
+  cursor: pointer;
 }
 .lang-option:hover {
   background-color: var(--hover-background);

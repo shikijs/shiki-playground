@@ -23,7 +23,7 @@ export default defineComponent({
   },
   methods: {
     saveToImage() {
-      const node = document.querySelector('.shiki')!
+      const node = document.querySelector('#shiki-output')!
 
       domtoimage
         .toBlob(node, {

@@ -69,6 +69,7 @@ export default defineComponent({
 
 .theme-option {
   padding: 4px 12px 4px 8px;
+  cursor: pointer;
 }
 .theme-option:hover {
   background-color: var(--hover-background);

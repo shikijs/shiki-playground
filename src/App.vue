@@ -70,7 +70,8 @@ body {
   overflow-y: hidden;
 }
 .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content max-content auto max-content;
   flex-flow: row nowrap;
   overflow-y: auto;
   height: 100%;

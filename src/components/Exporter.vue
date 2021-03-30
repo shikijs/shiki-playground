@@ -23,16 +23,18 @@ export default defineComponent({
   },
   methods: {
     saveToImage() {
-      const node = document.querySelector('#shiki-output')!
+      const node: HTMLElement = document.querySelector('#preview-container')!
 
       domtoimage
         .toBlob(node, {
-          width: node.clientWidth * 2,
-          height: node.clientHeight * 2,
+          width: node.offsetWidth * 2,
+          height: node.offsetHeight * 2,
           style: {
             transform: 'scale(2)',
             'transform-origin': 'top left',
-            background: this.bgColor
+            background: this.bgColor,
+            width: node.offsetWidth + 'px',
+            height: node.offsetHeight + 'px'
           }
         })
         .then((blob) => {

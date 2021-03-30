@@ -100,18 +100,22 @@ export default defineComponent({
   border-left: var(--border);
   overflow: auto;
 }
-#previewer-container {
+#preview-container {
   position: absolute;
   width: auto;
+  display: inline-block;
+  border-right: var(--border);
+  border-bottom: var(--border);
 }
 #shiki-input,
 #shiki-output {
   line-height: 1.3em;
   font-size: 12px;
-  padding: 4px 16px;
   height: calc(100% - 16px);
-  padding: 8px;
+  padding: 20px 32px;
+  margin: 20px;
   font-family: var(--mono-font);
+  border: var(--border);
 }
 #shiki-input {
   position: absolute;
@@ -129,6 +133,7 @@ export default defineComponent({
 #shiki-output {
   display: inline-block;
   pointer-events: none;
+  border-radius: 10px;
 }
 pre {
   margin: 0;

@@ -68,6 +68,9 @@ export default defineComponent({
 
   border-left: var(--border);
 }
+#lang-selector::-webkit-scrollbar {
+  display: none;
+}
 
 .lang-option {
   padding: 4px 12px 4px 8px;

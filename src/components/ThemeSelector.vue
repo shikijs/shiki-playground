@@ -66,6 +66,9 @@ export default defineComponent({
   display: flex;
   flex-flow: column nowrap;
 }
+#theme-selector::-webkit-scrollbar {
+  display: none;
+}
 
 .theme-option {
   padding: 4px 12px 4px 8px;

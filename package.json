@@ -2,7 +2,7 @@
   "name": "shiki-site",
   "version": "0.0.0",
   "scripts": {
-    "copy": "shx rm -r public/shiki && shx cp -r node_modules/shiki public/",
+    "copy": "shx mkdir -p public/shiki && shx cp -r node_modules/shiki/* public/shiki/",
     "predev": "npm run copy",
     "dev": "vite",
     "prebuild": "npm run copy",

@@ -3,7 +3,7 @@
     <span id="logo">shiki - a beautiful syntax highlighter</span>
     <nav id="right-nav">
       <ul>
-        <li><a target="_blank" href="https://github.com/shikijs/shiki">github</a></li>
+        <li><a target="_blank" href="https://github.com/shikijs/shiki-playground">github</a></li>
         <li><a target="_blank" href="https://shiki.matsu.io/">docs</a></li>
         <li @click="toggleDarkMode">
           <a class="toggleDarkModeIcon"></a>

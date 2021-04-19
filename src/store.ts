@@ -1,5 +1,13 @@
 import { BUNDLED_LANGUAGES, BUNDLED_THEMES, Lang, Theme } from 'shiki'
 import { createStore } from 'vuex'
+import {
+  fontSources,
+  setFont,
+  getGoogleFontSourceCSSUrl,
+  defaultFontSize,
+  defaultFont,
+  setFontSize
+} from './fonts'
 import { highlighter } from './highlighter'
 import { preloadedLangs, preloadedThemes } from './preload'
 
@@ -15,6 +23,8 @@ export interface State {
   code: string
   fgColor: string
   bgColor: string
+  font: string
+  fontSize: number
 }
 
 export const store = createStore<State>({
@@ -22,11 +32,11 @@ export const store = createStore<State>({
     return {
       loadedThemes: preloadedThemes,
       unloadedThemes: (BUNDLED_THEMES as Theme[]).filter(
-        (t) => !preloadedThemes.includes(t as Theme)
+        t => !preloadedThemes.includes(t as Theme)
       ),
       loadedLangs: preloadedLangs,
-      unloadedLangs: BUNDLED_LANGUAGES.map((l) => l.id as Lang).filter(
-        (l) => !preloadedLangs.includes(l as Lang)
+      unloadedLangs: BUNDLED_LANGUAGES.map(l => l.id as Lang).filter(
+        l => !preloadedLangs.includes(l as Lang)
       ),
       theme: '',
       previewTheme: '',
@@ -34,7 +44,9 @@ export const store = createStore<State>({
       previewLang: '',
       code: '',
       fgColor: '',
-      bgColor: ''
+      bgColor: '',
+      font: defaultFont,
+      fontSize: defaultFontSize
     }
   },
   mutations: {
@@ -42,7 +54,7 @@ export const store = createStore<State>({
       if (!state.loadedThemes.includes(theme)) {
         state.loadedThemes.push(theme)
       }
-      state.unloadedThemes = state.unloadedThemes.filter((t) => t !== theme)
+      state.unloadedThemes = state.unloadedThemes.filter(t => t !== theme)
     },
     changeTheme(state, t) {
       state.theme = t
@@ -58,7 +70,7 @@ export const store = createStore<State>({
       if (!state.loadedLangs.includes(lang)) {
         state.loadedLangs.push(lang)
       }
-      state.unloadedLangs = state.unloadedLangs.filter((l) => l !== lang)
+      state.unloadedLangs = state.unloadedLangs.filter(l => l !== lang)
     },
     changeLang(state, l) {
       state.lang = l
@@ -68,6 +80,12 @@ export const store = createStore<State>({
     },
     changeCode(state, c) {
       state.code = c
+    },
+    changeFont(state, font) {
+      state.font = font
+    },
+    changeFontSize(state, fs) {
+      state.fontSize = fs
     }
   },
   actions: {
@@ -131,12 +149,36 @@ export const store = createStore<State>({
         }
       }
       ctx.commit('changePreviewLang', l)
+    },
+    async changeFont(ctx, font) {
+      const matchingFontSource = fontSources.find(fs => fs.name === font)
+      if (matchingFontSource) {
+        const link = document.createElement('link')
+
+        link.href =
+          'cssUrl' in matchingFontSource
+            ? matchingFontSource.cssUrl
+            : getGoogleFontSourceCSSUrl(matchingFontSource.name)
+        link.rel = 'stylesheet'
+        link.type = 'text/css'
+
+        link.onload = () => {
+          setFont(font)
+          ctx.commit('changeFont', font)
+        }
+
+        document.body.appendChild(link)
+      }
+    },
+    async changeFontSize(ctx, fs) {
+      setFontSize(fs)
+      ctx.commit('changeFontSize', fs)
     }
   }
 })
 
 function getLangSamplePath(langId: Lang) {
-  const langRegistration = BUNDLED_LANGUAGES.filter((l) => l.id === langId)[0]
+  const langRegistration = BUNDLED_LANGUAGES.filter(l => l.id === langId)[0]
 
   return langRegistration?.samplePath
 }

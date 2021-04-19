@@ -31,6 +31,7 @@ export default defineComponent({
 <style>
 :root {
   --mono-font: 'SFMono-Regular', Menlo, Consolas, Monaco, Liberation Mono, 'Lucida Console', monospace;
+  --mono-font-size: 12px;
 }
 </style>
 
@@ -60,7 +61,7 @@ body.dark {
 body {
   margin: 0;
   font-family: var(--mono-font);
-  font-size: 12px;
+  font-size: var(--mono-font-size);
 }
 
 #app {

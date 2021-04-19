@@ -4,6 +4,7 @@
       <div id="shiki-output" :class="{ active: showPreview }" v-html="highlightedCode" @click="hidePreview"></div>
       <textarea id="shiki-input" v-model="rawCode" ref="cc" :style="{ caretColor: fgColor }" />
     </div>
+    <config-bar />
   </div>
 </template>
 
@@ -12,8 +13,12 @@ import { BUNDLED_LANGUAGES } from 'shiki'
 import { defineComponent } from 'vue'
 import { highlighter } from '../highlighter'
 import { asyncLangsToLoad } from '../preload'
+import ConfigBar from './ConfigBar.vue'
 
 export default defineComponent({
+  components: {
+    ConfigBar,
+  },
   data() {
     return {
       showPreview: true,
@@ -110,7 +115,7 @@ export default defineComponent({
 #shiki-input,
 #shiki-output {
   line-height: 1.3em;
-  font-size: 12px;
+  font-size: var(--mono-font-size);
   height: calc(100% - 16px);
   padding: 20px 32px;
   margin: 20px;
@@ -140,7 +145,7 @@ pre {
 }
 pre code {
   font-family: var(--mono-font);
-  font-size: 12px;
+  font-size: var(--mono-font-size);
   white-space: pre-wrap;
 }
 .shiki {

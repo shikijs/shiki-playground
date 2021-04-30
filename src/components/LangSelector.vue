@@ -21,7 +21,7 @@
       :key="l"
       class="lang-option"
       :class="{ active: l === activeLang }"
-      @click="loadAndchangeLang(l)"
+      @click="loadAndChangeLang(l)"
     >
       {{ l }}
     </div>
@@ -48,8 +48,8 @@ export default defineComponent({
     changeLang(l: string) {
       this.$store.dispatch('changeLang', l)
     },
-    loadAndchangeLang(l: Lang) {
-      this.$store.dispatch('loadAndchangeLang', l)
+    loadAndChangeLang(l: Lang) {
+      this.$store.dispatch('loadAndChangeLang', l)
     },
     previewLang(l: string) {
       this.$store.dispatch('changePreviewLang', l)

@@ -1,5 +1,5 @@
 <template>
-  <div id="theme-selector" @mouseout="loadAndchangeTheme(activeTheme)">
+  <div id="theme-selector" @mouseout="loadAndChangeTheme(activeTheme)">
     <div class="theme-option-empty">--- loaded ---</div>
 
     <div
@@ -7,7 +7,7 @@
       :key="t"
       class="theme-option"
       :class="{ active: t === activeTheme }"
-      @click="loadAndchangeTheme(t)"
+      @click="loadAndChangeTheme(t)"
       @mouseover="previewTheme(t)"
       @mouseout="previewTheme('')"
     >
@@ -21,7 +21,7 @@
       :key="t"
       class="theme-option"
       :class="{ active: t === activeTheme }"
-      @click="loadAndchangeTheme(t)"
+      @click="loadAndChangeTheme(t)"
     >
       {{ t }}
     </div>
@@ -48,8 +48,8 @@ export default defineComponent({
     }
   },
   methods: {
-    loadAndchangeTheme(t: string) {
-      this.$store.dispatch('loadAndchangeTheme', t)
+    loadAndChangeTheme(t: string) {
+      this.$store.dispatch('loadAndChangeTheme', t)
     },
     previewTheme(t: string) {
       this.$store.dispatch('changePreviewTheme', t)

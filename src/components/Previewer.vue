@@ -61,7 +61,7 @@ export default defineComponent({
     },
   },
   async mounted() {
-    await this.$store.dispatch('loadAndchangeLang', 'javascript')
+    await this.$store.dispatch('loadAndChangeLang', 'javascript')
 
     const langRegistration = BUNDLED_LANGUAGES.filter((l) => l.id === this.langToShow)[0]
 
@@ -73,9 +73,9 @@ export default defineComponent({
     }
 
     if (window.__theme === 'dark') {
-      this.$store.dispatch('loadAndchangeTheme', 'github-dark')
+      this.$store.dispatch('loadAndChangeTheme', 'github-dark')
     } else {
-      this.$store.dispatch('loadAndchangeTheme', 'github-light')
+      this.$store.dispatch('loadAndChangeTheme', 'github-light')
     }
 
     for (let l of asyncLangsToLoad) {

@@ -1,10 +1,10 @@
 <template>
   <div id="config-bar">
-    <label for="fontSelect">Font</label>
+    <label for="fontSelect">font</label>
     <select v-model="font" name="font" id="fontSelect">
       <option v-for="s in fontSources" :key="s.name" :value="s.name">{{ s.name }}</option>
     </select>
-    <label for="fontSize">Size</label>
+    <label for="fontSize">size</label>
     <select v-model="fontSize" name="fontSize" id="fontSizeSelect">
       <option v-for="s in fontSizes" :key="s" :value="s">{{ s }}px</option>
     </select>
@@ -42,6 +42,7 @@ export default {
 
   position: absolute;
   bottom: 0;
+  box-sizing: border-box;
   width: 100%;
   border-top: var(--border);
   padding: 0 12px;

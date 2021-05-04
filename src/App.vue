@@ -15,6 +15,9 @@ import LangSelector from './components/LangSelector.vue'
 import ThemeSelector from './components/ThemeSelector.vue'
 import Previewer from './components/Previewer.vue'
 import Exporter from './components/Exporter.vue'
+import { BUNDLED_LANGUAGES } from 'shiki'
+import { asyncLangsToLoad } from './preload'
+import { settingsFromURL } from './settings'
 
 export default defineComponent({
   name: 'App',
@@ -24,13 +27,50 @@ export default defineComponent({
     ThemeSelector,
     Previewer,
     Exporter
+  },
+  async beforeMount() {
+    const defaultSettings = settingsFromURL()
+
+    if (defaultSettings.theme) {
+      await this.$store.dispatch('loadAndChangeTheme', defaultSettings.theme)
+    } else {
+      if (window.__theme === 'dark') {
+        await this.$store.dispatch('loadAndChangeTheme', 'github-dark')
+      } else {
+        await this.$store.dispatch('loadAndChangeTheme', 'github-light')
+      }
+    }
+
+    if (defaultSettings.lang) {
+      await this.$store.dispatch('loadAndChangeLang', defaultSettings.lang)
+    } else {
+      await this.$store.dispatch('loadAndChangeLang', 'javascript')
+    }
+
+    const langToShow = this.$store.state.previewLang || this.$store.state.lang
+    const langRegistration = BUNDLED_LANGUAGES.filter(l => l.id === langToShow)[0]
+
+    if (defaultSettings.code) {
+      this.$store.commit('changeCode', defaultSettings.code)
+    } else {
+      if (langRegistration?.samplePath) {
+        const res = await fetch(`/shiki/samples/${langRegistration.samplePath}`)
+        const text = await res.text()
+        this.$store.commit('changeCode', text)
+      }
+    }
+
+    for (let l of asyncLangsToLoad) {
+      await this.$store.dispatch('loadLang', l)
+    }
   }
 })
 </script>
 
 <style>
 :root {
-  --mono-font: 'SFMono-Regular', Menlo, Consolas, Monaco, Liberation Mono, 'Lucida Console', monospace;
+  --mono-font: 'SFMono-Regular', Menlo, Consolas, Monaco, Liberation Mono, 'Lucida Console',
+    monospace;
   --mono-font-size: 12px;
 }
 </style>

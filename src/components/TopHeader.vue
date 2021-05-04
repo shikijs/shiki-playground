@@ -3,6 +3,7 @@
     <span id="logo">shiki - a beautiful syntax highlighter</span>
     <nav id="right-nav">
       <ul>
+        <li><a @click="syncURLWithSettings">permalink</a></li>
         <li><a target="_blank" href="https://github.com/shikijs/shiki-playground">github</a></li>
         <li><a target="_blank" href="https://shiki.matsu.io/">docs</a></li>
         <li @click="toggleDarkMode">
@@ -15,6 +16,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { syncURLWithSettings } from '../settings'
 
 const toggleDarkMode = () => {
   window.__setPreferredTheme(window.__theme === 'light' ? 'dark' : 'light')
@@ -22,7 +24,10 @@ const toggleDarkMode = () => {
 
 export default defineComponent({
   methods: {
-    toggleDarkMode
+    toggleDarkMode,
+    syncURLWithSettings() {
+      syncURLWithSettings(this.$store.state)
+    }
   }
 })
 </script>

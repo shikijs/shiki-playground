@@ -1,6 +1,12 @@
 import lzstring from 'lz-string'
 
-export const settingsFromURL = () => {
+interface Settings {
+  code: string
+  theme: string
+  lang: string
+}
+
+export const settingsFromURL = (): Settings => {
   const location = document.location
   let code: string = ''
 
@@ -27,4 +33,13 @@ export const settingsFromURL = () => {
     theme: searchParams.get('theme') || '',
     lang: searchParams.get('lang') || ''
   }
+}
+
+export const syncURLWithSettings = (settings: Settings) => {
+  const search = new URLSearchParams([
+    ['theme', settings.theme],
+    ['lang', settings.lang]
+  ])
+  location.hash = '#code/' + lzstring.compressToEncodedURIComponent(settings.code)
+  location.search = search.toString()
 }

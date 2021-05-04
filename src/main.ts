@@ -1,8 +1,12 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import * as Vue from 'vue'
 import { initHighlighter } from './highlighter'
+import { router } from './router'
 import { store } from './store'
+import Home from './pages/Home.vue'
 
 initHighlighter().then(() => {
-  createApp(App).use(store).mount('#app')
+  const app = Vue.createApp(Home)
+  app.use(store)
+  app.use(router)
+  app.mount('#app')
 })

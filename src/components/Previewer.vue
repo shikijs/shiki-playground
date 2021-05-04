@@ -9,10 +9,8 @@
 </template>
 
 <script lang="ts">
-import { BUNDLED_LANGUAGES } from 'shiki'
 import { defineComponent } from 'vue'
 import { highlighter } from '../highlighter'
-import { asyncLangsToLoad } from '../preload'
 import ConfigBar from './ConfigBar.vue'
 
 export default defineComponent({
@@ -59,28 +57,6 @@ export default defineComponent({
     async themeToShow() {
       await this.updateHighlighter()
     },
-  },
-  async mounted() {
-    await this.$store.dispatch('loadAndchangeLang', 'javascript')
-
-    const langRegistration = BUNDLED_LANGUAGES.filter((l) => l.id === this.langToShow)[0]
-
-    if (langRegistration?.samplePath) {
-      const res = await fetch(`/shiki/samples/${langRegistration.samplePath}`)
-      const text = await res.text()
-      this.rawCode = text
-      this.$store.commit('changeCode', text)
-    }
-
-    if (window.__theme === 'dark') {
-      this.$store.dispatch('loadAndchangeTheme', 'github-dark')
-    } else {
-      this.$store.dispatch('loadAndchangeTheme', 'github-light')
-    }
-
-    for (let l of asyncLangsToLoad) {
-      await this.$store.dispatch('loadLang', l)
-    }
   },
   methods: {
     async updateHighlighter() {

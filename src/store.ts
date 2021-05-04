@@ -92,7 +92,7 @@ export const store = createStore<State>({
     async changeTheme(ctx, t) {
       ctx.commit('changeTheme', t)
     },
-    async loadAndchangeTheme(ctx, t) {
+    async loadAndChangeTheme(ctx, t) {
       await highlighter.loadTheme(t)
       ctx.commit('loadTheme', t)
 
@@ -111,7 +111,7 @@ export const store = createStore<State>({
         const res = await fetch(`/shiki/samples/${samplePath}`)
         const text = await res.text()
         ctx.commit('changeCode', text)
-      } else {
+      } else if (ctx.state.code === '') {
         ctx.commit('changeCode', '// type your code')
       }
       ctx.commit('changeLang', langId)
@@ -120,7 +120,7 @@ export const store = createStore<State>({
       await highlighter.loadLanguage(l)
       ctx.commit('loadLang', l)
     },
-    async loadAndchangeLang(ctx, l) {
+    async loadAndChangeLang(ctx, l) {
       await ctx.dispatch('loadLang', l)
       await ctx.dispatch('changeLang', l)
     },

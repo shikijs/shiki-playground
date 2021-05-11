@@ -24,6 +24,7 @@
     "@types/dom-to-image": "^2.6.2",
     "@types/file-saver": "^2.0.1",
     "@types/lz-string": "^1.3.34",
+    "@types/node": "^15.0.2",
     "@vitejs/plugin-vue": "^1.1.5",
     "@vue/compiler-sfc": "^3.0.5",
     "shx": "^0.3.3",

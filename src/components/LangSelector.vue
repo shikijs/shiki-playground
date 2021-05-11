@@ -67,6 +67,9 @@ export default defineComponent({
   flex-flow: column nowrap;
 
   border-left: var(--border);
+
+  color: var(--sidebar-fg);
+  background-color: var(--sidebar-bg);
 }
 #lang-selector::-webkit-scrollbar {
   display: none;
@@ -77,10 +80,12 @@ export default defineComponent({
   cursor: pointer;
 }
 .lang-option:hover {
+  color: var(--hover-foreground);
   background-color: var(--hover-background);
 }
 .lang-option.active {
-  background-color: var(--focus-background);
+  color: var(--active-selection-foreground);
+  background-color: var(--active-selection-background);
 }
 .lang-option-empty {
   padding: 4px 12px 4px 8px;

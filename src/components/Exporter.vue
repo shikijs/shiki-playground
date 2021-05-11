@@ -78,6 +78,7 @@ export default defineComponent({
   cursor: pointer;
 }
 .export-option:hover {
+  color: var(--hover-foreground);
   background-color: var(--hover-background);
 }
 </style>

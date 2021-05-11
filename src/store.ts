@@ -10,6 +10,7 @@ import {
 } from './fonts'
 import { highlighter } from './highlighter'
 import { preloadedLangs, preloadedThemes } from './preload'
+import { extractColors, setThemeVariables } from './styling'
 
 export interface State {
   loadedThemes: Theme[]
@@ -17,6 +18,7 @@ export interface State {
   loadedLangs: Lang[]
   unloadedLangs: Lang[]
   theme: string
+  themeColors: string[]
   previewTheme: string
   lang: string
   previewLang: string
@@ -39,6 +41,7 @@ export const store = createStore<State>({
         l => !preloadedLangs.includes(l as Lang)
       ),
       theme: '',
+      themeColors: [],
       previewTheme: '',
       lang: '',
       previewLang: '',
@@ -60,6 +63,9 @@ export const store = createStore<State>({
       state.theme = t
       state.fgColor = highlighter.getForegroundColor(t)
       state.bgColor = highlighter.getBackgroundColor(t)
+    },
+    changeThemeColors(state, themeColors) {
+      state.themeColors = [...themeColors]
     },
     changePreviewTheme(state, t) {
       state.previewTheme = t
@@ -91,6 +97,13 @@ export const store = createStore<State>({
   actions: {
     async changeTheme(ctx, t) {
       ctx.commit('changeTheme', t)
+      const colors = extractColors(highlighter.getTheme(t))
+      setThemeVariables(
+        highlighter.getForegroundColor(t),
+        highlighter.getBackgroundColor(t),
+        colors
+      )
+      ctx.commit('changeThemeColors', colors.mainColors)
     },
     async loadAndChangeTheme(ctx, t) {
       await highlighter.loadTheme(t)

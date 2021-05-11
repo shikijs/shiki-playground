@@ -1,9 +1,9 @@
-import App from './App.vue'
-import Play from './Play.vue'
+import Home from './pages/Home.vue'
+import Play from './pages/Play.vue'
 import * as VueRouter from 'vue-router'
 
 const routes = [
-  { path: '/', component: App },
+  { path: '/', component: Home },
   { path: '/play', component: Play }
 ]
 

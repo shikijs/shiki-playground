@@ -1,3 +1,5 @@
+import { setRootCSSVariable } from './styling'
+
 export const defaultFont = 'IBM Plex Mono'
 export const defaultFontSize = 12
 
@@ -34,12 +36,9 @@ export function getGoogleFontSourceCSSUrl(fontName: string) {
   return `https://fonts.googleapis.com/css2?family=${escapedFontName}:ital,wght@0,400;0,700;1,400;1,700&display=swap`
 }
 
-function setCSSVariable(name: string, value: string) {
-  document.documentElement.style.setProperty(name, value)
-}
 export function setFont(font: string) {
-  setCSSVariable('--mono-font', `'${font}', '${defaultFont}', monospace`)
+  setRootCSSVariable('--mono-font', `'${font}', '${defaultFont}', monospace`)
 }
 export function setFontSize(fs: number) {
-  setCSSVariable('--mono-font-size', fs.toString() + 'px')
+  setRootCSSVariable('--mono-font-size', fs.toString() + 'px')
 }

@@ -37,10 +37,16 @@ export default defineComponent({
   border-bottom: var(--border);
   display: flex;
 
-  padding: 1rem 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   justify-content: space-between;
+
+  color: var(--sidebar-fg);
+  background-color: var(--tab-bg);
 }
 #logo {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   display: flex;
 }
 
@@ -50,15 +56,10 @@ export default defineComponent({
   margin: 0;
 }
 #header li {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   display: inline-block;
   margin-right: 0.8rem;
-}
-#header a {
-  color: #000;
-  text-decoration: none;
-}
-#header a:hover {
-  text-decoration: underline;
 }
 
 .sun-icon {
@@ -72,11 +73,12 @@ body.dark .sun-icon {
 }
 
 #right-nav a {
-  color: var(--foreground);
+  color: var(--sidebar-fg);
   cursor: pointer;
+  text-decoration: none;
 }
-#right-nav a svg {
-  fill: var(--foreground);
+#right-nav a:hover {
+  text-decoration: underline;
 }
 
 .toggleDarkModeIcon {

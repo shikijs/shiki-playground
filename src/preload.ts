@@ -5,7 +5,6 @@ import { Lang, Theme } from 'shiki'
  * - Then: Load `preloaded` theme/lang in the background
  * - For all other theme/lang, only load when clicked
  */
-
 export const preloadedThemes: Theme[] = ['github-light', 'github-dark']
 export const preloadedLangs: Lang[] = ['javascript']
 

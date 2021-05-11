@@ -65,6 +65,9 @@ export default defineComponent({
 
   display: flex;
   flex-flow: column nowrap;
+
+  color: var(--sidebar-fg);
+  background-color: var(--sidebar-bg);
 }
 #theme-selector::-webkit-scrollbar {
   display: none;
@@ -75,10 +78,12 @@ export default defineComponent({
   cursor: pointer;
 }
 .theme-option:hover {
+  color: var(--hover-foreground);
   background-color: var(--hover-background);
 }
 .theme-option.active {
-  background-color: var(--focus-background);
+  color: var(--active-selection-foreground);
+  background-color: var(--active-selection-background);
 }
 .theme-option-empty {
   padding: 4px 12px 4px 8px;

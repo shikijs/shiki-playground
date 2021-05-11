@@ -1,120 +1,61 @@
 <template>
-  <TopHeader />
-  <div class="container">
-    <ThemeSelector />
-    <LangSelector />
-    <Previewer />
-    <Exporter />
-  </div>
+  <router-view></router-view>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import TopHeader from './components/TopHeader.vue'
-import LangSelector from './components/LangSelector.vue'
-import ThemeSelector from './components/ThemeSelector.vue'
-import Previewer from './components/Previewer.vue'
-import Exporter from './components/Exporter.vue'
-import { BUNDLED_LANGUAGES } from 'shiki'
-import { asyncLangsToLoad } from './preload'
-import { settingsFromURL } from './settings'
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    TopHeader,
-    LangSelector,
-    ThemeSelector,
-    Previewer,
-    Exporter
-  },
-  async beforeMount() {
-    const defaultSettings = settingsFromURL()
-
-    if (defaultSettings.theme) {
-      await this.$store.dispatch('loadAndChangeTheme', defaultSettings.theme)
-    } else {
-      if (window.__theme === 'dark') {
-        await this.$store.dispatch('loadAndChangeTheme', 'github-dark')
-      } else {
-        await this.$store.dispatch('loadAndChangeTheme', 'github-light')
-      }
-    }
-
-    if (defaultSettings.lang) {
-      await this.$store.dispatch('loadAndChangeLang', defaultSettings.lang)
-    } else {
-      await this.$store.dispatch('loadAndChangeLang', 'javascript')
-    }
-
-    const langToShow = this.$store.state.previewLang || this.$store.state.lang
-    const langRegistration = BUNDLED_LANGUAGES.filter(l => l.id === langToShow)[0]
-
-    if (defaultSettings.code) {
-      this.$store.commit('changeCode', defaultSettings.code)
-    } else {
-      if (langRegistration?.samplePath) {
-        const res = await fetch(`/shiki/samples/${langRegistration.samplePath}`)
-        const text = await res.text()
-        this.$store.commit('changeCode', text)
-      }
-    }
-
-    for (let l of asyncLangsToLoad) {
-      await this.$store.dispatch('loadLang', l)
-    }
-  }
-})
-</script>
 
 <style>
 :root {
   --mono-font: 'SFMono-Regular', Menlo, Consolas, Monaco, Liberation Mono, 'Lucida Console',
     monospace;
   --mono-font-size: 12px;
+  --ystep: 24px;
 }
 </style>
 
 <style>
 body {
-  color: #24292e;
-  background-color: #fff;
   --foreground: #24292e;
   --background: #fff;
+  --active-selection-foreground: #2f363d;
   --focus-background: #cce5ff;
+  --focus-foreground: #24292e;
   --hover-background: #ebf0f4;
+  --hover-foreground: #24292e;
   --border: 1px solid #e1e4e8;
 }
 
 body.dark {
-  color: #e1e4e8;
-  background-color: #24292e;
   --foreground: #e1e4e8;
   --background: #24292e;
+  --active-selection-foreground: #e1e4e8;
   --focus-background: #044289;
+  --focus-foreground: #e1e4e8;
   --hover-background: #282e34;
+  --hover-foreground: #e1e4e8;
   --border: 1px solid #2f363d;
+}
+body {
+  color: var(--foreground);
+  background-color: var(--background);
 }
 </style>
 
 <style>
 body {
   margin: 0;
+  min-width: calc(32px * 20);
   font-family: var(--mono-font);
   font-size: var(--mono-font-size);
 }
 
 #app {
-  display: flex;
-  flex-flow: column nowrap;
-  height: 100vh;
-  overflow-y: hidden;
 }
-.container {
-  display: grid;
-  grid-template-columns: max-content max-content auto max-content;
-  flex-flow: row nowrap;
-  overflow-y: auto;
-  height: 100%;
+</style>
+
+<style>
+a {
+  color: var(--foreground);
+}
+a:hover {
+  text-decoration: line-through;
 }
 </style>

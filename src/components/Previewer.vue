@@ -122,7 +122,7 @@ pre {
 pre code {
   font-family: var(--mono-font);
   font-size: var(--mono-font-size);
-  white-space: pre-wrap;
+  white-space: pre;
 }
 .shiki {
   display: inline-block;

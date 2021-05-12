@@ -9,7 +9,7 @@
     <p>
       The benefits are:
       <ul>
-        <li>Support for <span :style="{ color }">123</span> languages</li>
+        <li>Support for <span :style="{ color }">{{ langNum }}</span> languages</li>
         <li>Ease of adding language support — just include its TextMate grammar</li>
         <li>Editor-grade granularity</li>
       </ul>
@@ -43,10 +43,12 @@
 import { defineComponent } from 'vue'
 import HexagonDivider from './HexagonDivider.vue'
 import SvgComparison from './SvgComparison.vue'
+import { BUNDLED_LANGUAGES } from 'shiki'
 
 export default defineComponent({
   data() {
     return {
+      langNum: BUNDLED_LANGUAGES.length,
       color: '#E6611A'
     }
   },

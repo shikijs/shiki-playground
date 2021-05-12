@@ -2,8 +2,8 @@
   <hexagon-divider :color="color" />
 
   <div>
-    <p>All 123 languages supported by Shiki:</p>
-    <p>{{ languages }}</p>
+    <p>All {{ languageIds.length }} languages supported by Shiki:</p>
+    <p>{{ languageIds.join(' | ') }}</p>
     <p :style="{ color }">Try it in the <a :style="{ color }" target="_blank" href="/play">playground</a></p>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default defineComponent({
   data() {
     return {
       color: '#D92626',
-      languages: BUNDLED_LANGUAGES.map(l => l.id).join(' | ')
+      languageIds: BUNDLED_LANGUAGES.map(l => l.id)
     }
   },
   components: {

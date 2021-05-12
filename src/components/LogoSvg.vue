@@ -129,7 +129,7 @@ function drawHexagon(center, fill) {
  * For example, [1, 2] => [stepX, stepY * 2]
  */
 const offsetX = -10 * stepX
-const offsetY = -10 * stepX
+const offsetY = -9 * stepY
 function drawPolygonWithAnimation(
   p1r: [number, number],
   // p2r: [number, number],

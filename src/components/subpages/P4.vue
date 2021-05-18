@@ -2,9 +2,11 @@
   <hexagon-divider :color="color" />
 
   <div>
-    <p>All {{ languageIds.length }} languages supported by Shiki:</p>
-    <p>{{ languageIds.join(' | ') }}</p>
-    <p :style="{ color }">Try it in the <a :style="{ color }" target="_blank" href="/play">playground</a></p>
+    <p>All themes supported by Shiki:</p>
+    <p>{{ languages }}</p>
+    <p :style="{ color }">
+      Try it in the <a :style="{ color }" target="_blank" href="/play">playground</a>
+    </p>
   </div>
 </template>
 
@@ -12,13 +14,13 @@
 import { defineComponent } from 'vue'
 import HexagonDivider from './HexagonDivider.vue'
 import SvgComparison from './SvgComparison.vue'
-import { BUNDLED_LANGUAGES } from 'shiki'
+import { BUNDLED_THEMES } from 'shiki'
 
 export default defineComponent({
   props: ['color'],
   data() {
     return {
-      languageIds: BUNDLED_LANGUAGES.map(l => l.id)
+      languages: BUNDLED_THEMES.map(t => t).join(' | ')
     }
   },
   components: {

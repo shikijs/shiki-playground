@@ -23,7 +23,6 @@ interface WorkspaceColors {
 }
 
 export function setThemeVariables(fg: string, bg: string, themeColors: WorkspaceColors) {
-  console.log(JSON.stringify(themeColors))
   setBodyCSSVariable('--foreground', fg)
   setBodyCSSVariable('--background', bg)
   setBodyCSSVariable('--focus-background', themeColors.focusBg)
@@ -78,10 +77,6 @@ export function extractColors(t: IShikiTheme): WorkspaceColors {
 
   primaryTypes.map(ttype => {
     const targetSetting = t.settings.find(s => s.scope === ttype || s.scope?.includes(ttype))
-    // console.log(
-    //   `${ttype} ${targetSetting?.settings.foreground} %c  `,
-    //   `background: ${targetSetting?.settings.foreground}`
-    // )
     if (targetSetting && targetSetting.settings.foreground) {
       colors.add(targetSetting.settings.foreground)
     }

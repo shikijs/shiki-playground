@@ -5,26 +5,28 @@
     <logo-svg />
 
     <div class="pages">
-      <p1 />
+      <p1 :color="colors[0]" />
     </div>
 
     <div class="pages">
-      <p2 />
+      <p2 :color="colors[1]" />
     </div>
 
     <div class="pages">
-      <p3 />
+      <p3 :color="colors[2]" />
     </div>
 
     <div class="pages">
-      <p>Comparison</p>
+      <p4 :color="colors[3]" />
     </div>
+
+    <!-- <div class="pages">
+      <p5 :color="colors[4]" />
+    </div>
+
     <div class="pages">
-      <p>Extensibility</p>
-    </div>
-    <div class="pages">
-      <p>Export</p>
-    </div>
+      <p6 :color="colors[5]" />
+    </div> -->
   </div>
 </template>
 
@@ -35,6 +37,11 @@ import LogoSvg from '../components/LogoSvg.vue'
 import P1 from '../components/subpages/P1.vue'
 import P2 from '../components/subpages/P2.vue'
 import P3 from '../components/subpages/P3.vue'
+import P4 from '../components/subpages/P4.vue'
+import P5 from '../components/subpages/P5.vue'
+import P6 from '../components/subpages/P6.vue'
+
+const colors = ['#E6611A', '#D92626', '#26D9B9', '#5E40BF', '#E5F20D', '#491AE6']
 
 export default defineComponent({
   components: {
@@ -42,7 +49,15 @@ export default defineComponent({
     LogoSvg,
     P1,
     P2,
-    P3
+    P3,
+    P4,
+    P5,
+    P6
+  },
+  data() {
+    return {
+      colors
+    }
   },
   async mounted() {
     if (window.__theme === 'dark') {

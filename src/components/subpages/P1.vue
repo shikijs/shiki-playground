@@ -46,10 +46,10 @@ import SvgComparison from './SvgComparison.vue'
 import { BUNDLED_LANGUAGES } from 'shiki'
 
 export default defineComponent({
+  props: ['color'],
   data() {
     return {
-      langNum: BUNDLED_LANGUAGES.length,
-      color: '#E6611A'
+      langNum: BUNDLED_LANGUAGES.length
     }
   },
   components: {

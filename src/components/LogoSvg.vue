@@ -181,7 +181,6 @@ function createAnimatedPolygon(beginPoints, endPoints, delay, dur, fill) {
 
 <style>
 #logo-svg-container {
-  height: calc(100vh - 100px);
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -189,7 +188,9 @@ function createAnimatedPolygon(beginPoints, endPoints, delay, dur, fill) {
 }
 #logo-svg {
   width: 640px;
+  min-width: 640px;
   height: 768px;
+  min-height: 768px;
 }
 .mono {
   fill: var(--foreground);

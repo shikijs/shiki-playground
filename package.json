@@ -14,8 +14,8 @@
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.5",
     "lz-string": "^1.4.4",
-    "shiki": "^0.9.2",
-    "shiki-renderer-svg": "^0.9.3",
+    "shiki": "^0.9.4",
+    "shiki-renderer-svg": "^0.9.4",
     "vue": "^3.0.5",
     "vue-router": "4",
     "vuex": "^4.0.0"

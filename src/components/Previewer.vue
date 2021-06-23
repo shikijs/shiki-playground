@@ -1,7 +1,12 @@
 <template>
   <div id="previewer" :style="{ color: fgColor, backgroundColor: bgColor }">
     <div id="preview-container">
-      <div id="shiki-output" :class="{ active: showPreview }" v-html="highlightedCode" @click="hidePreview"></div>
+      <div
+        id="shiki-output"
+        :class="{ active: showPreview }"
+        v-html="highlightedCode"
+        @click="hidePreview"
+      ></div>
       <textarea id="shiki-input" v-model="rawCode" ref="cc" :style="{ caretColor: fgColor }" />
     </div>
     <config-bar />
@@ -15,7 +20,7 @@ import ConfigBar from './ConfigBar.vue'
 
 export default defineComponent({
   components: {
-    ConfigBar,
+    ConfigBar
   },
   data() {
     return {
@@ -30,7 +35,7 @@ export default defineComponent({
       return this.$store.state.code
     },
     langToShow(): string {
-      return this.$store.state.previewLang ||  this.$store.state.lang
+      return this.$store.state.previewLang || this.$store.state.lang
     },
     themeToShow(): string {
       return this.$store.state.previewTheme || this.$store.state.theme
@@ -56,7 +61,7 @@ export default defineComponent({
     },
     async themeToShow() {
       await this.updateHighlighter()
-    },
+    }
   },
   methods: {
     async updateHighlighter() {

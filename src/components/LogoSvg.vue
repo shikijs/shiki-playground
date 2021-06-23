@@ -26,13 +26,22 @@ const unitDelay = 300
 export default defineComponent({
   mounted() {
     const svgEl = this.$refs['logo-svg'] as SVGSVGElement
-    polygons.forEach((p, i) => {
-      svgEl.append(drawPolygonWithAnimation(...p, Math.floor(i / 2) * unitDelay))
-    })
+    // polygons.forEach((p, i) => {
+    //   svgEl.append(drawPolygonWithAnimation(...p, Math.floor(i / 2) * unitDelay))
+    // })
 
     svgEl.append(drawHexagons())
 
     svgEl.append(drawTexts())
+
+    svgEl.append(
+      createSVGElement('circle', {
+        cx: '0',
+        cy: '0',
+        r: '2',
+        fill: 'red'
+      })
+    )
   }
 })
 
@@ -128,8 +137,10 @@ function drawHexagon(center, fill) {
  * Each point specify steps
  * For example, [1, 2] => [stepX, stepY * 2]
  */
-const offsetX = -10 * stepX
-const offsetY = -9 * stepY
+// const offsetX = -10 * stepX
+// const offsetY = -9 * stepY
+const offsetX = 0
+const offsetY = 0
 function drawPolygonWithAnimation(
   p1r: [number, number],
   // p2r: [number, number],

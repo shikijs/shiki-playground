@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { stepX, stepY } from '../svg'
 
 export default defineComponent({
   mounted() {
@@ -34,16 +35,20 @@ function draw(ctx) {
 
   ctx.clearRect(0, 0, width, height)
 
-  const unitLen = 24
-
   const center = {
     x: width / 2,
     y: height / 2
   }
 
+  ctx.beginPath()
+  ctx.arc(center.x, center.y, 5, 0, Math.PI * 2, true) // Outer circle
+  ctx.strokeStyle = '#00ff00'
+  ctx.stroke()
+  ctx.closePath()
+
   ctx.strokeStyle = '#2f363d'
 
-  for (let x = 0; x < width / 2; x += unitLen * Math.cos(Math.PI / 6)) {
+  for (let x = 0; x < width / 2; x += stepX) {
     drawLine(center.x - x, 0, center.x - x, height)
     // avoid overlap in middle
     if (x !== 0) {
@@ -55,7 +60,7 @@ function draw(ctx) {
   drawAngledLines(Math.PI - Math.PI / 6)
 
   function drawAngledLines(angle) {
-    for (let y = 0; y - Math.abs(Math.tan(angle)) * (width / 2) < height / 2; y += unitLen) {
+    for (let y = 0; y - Math.abs(Math.tan(angle)) * (width / 2) < height / 2; y += stepY) {
       const x1 = width
       const y1 = y + center.y + Math.tan(angle) * (width / 2)
       const x2 = 0

@@ -8,4 +8,4 @@ a playground for shiki: https://shiki-play.matsu.io/play
 
 ---
 
-MIT © [Pine Wu](https://github.com/octref)
+license: MIT © Pine Wu (https://github.com/octref)

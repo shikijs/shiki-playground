@@ -5,3 +5,7 @@ a playground for shiki: https://shiki-play.matsu.io/play
 
 - https://shiki.matsu.io
 - https://github.com/shikijs/shiki
+
+---
+
+MIT © [Pine Wu](https://github.com/octref)

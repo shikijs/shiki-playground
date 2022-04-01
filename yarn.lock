@@ -511,10 +511,10 @@ shelljs@^0.8.4:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
-shiki-renderer-svg@^0.9.4:
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/shiki-renderer-svg/-/shiki-renderer-svg-0.9.4.tgz#daaf79b85f67bf1c6fd03190bbb4aa7049c71cb9"
-  integrity sha512-+517SKbBxZw/rWl3XoBjGnZRgxtJ9d9qqgLc1YmW0iwJspPjmEWWPHAzeOjsbahcoTILLDK6zy85eqQbsQXSCg==
+shiki-renderer-svg@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/shiki-renderer-svg/-/shiki-renderer-svg-0.10.1.tgz#aa6f0f446f1b3daf70399223c7ac8b0122f77525"
+  integrity sha512-JCXEoDA+KLedKY/gU2zF3SlGFLVXtjYGw+rQ3O2lJvNlOSItJ1kAR25jR7RNEDxtexnhijla+MKAtRoGVUhsLQ==
 
 shiki@^0.9.4:
   version "0.9.4"

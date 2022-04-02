@@ -95,6 +95,11 @@
     "@vue/compiler-dom" "3.0.7"
     "@vue/shared" "3.0.7"
 
+"@vue/devtools-api@^6.0.0":
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.1.4.tgz#b4aec2f4b4599e11ba774a50c67fa378c9824e53"
+  integrity sha512-IiA0SvDrJEgXvVxjNkHPFfDx6SXw0b/TUkqMcDZWNg9fnCAHbTpoo59YfJ9QLFkwa3raau5vSlRVzMSLDnfdtQ==
+
 "@vue/reactivity@3.0.7":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.0.7.tgz#e6ccc7bef7fc10b0972e4d974bad71679d3b26ad"
@@ -124,20 +129,20 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.0.7.tgz#96d52988efc07444c108c7c6803ba7cc93e40045"
   integrity sha512-dn5FyfSc4ky424jH4FntiHno7Ss5yLkqKNmM/NXwANRnlkmqu74pnGetexDFVG5phMk9/FhwovUZCWGxsotVKg==
 
-"@vueuse/core@^4.4.1":
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-4.4.1.tgz#1c1a83ac29306840c96329b1005c4d7608cee92f"
-  integrity sha512-L9TWFwI+pEqgEmfv+uWz2kQ9bXejtpaQdoS67UUyii22rSesjP1aTTU7z7XX5i7aIgsHKnKYv68cDCtEZbjsPA==
+"@vueuse/core@^4.11.2":
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-4.11.2.tgz#d4f54bd38e7c289c6f6357992c02423774cb26d9"
+  integrity sha512-4A17XvKXpMR6829EVWvrdSKEeAjTWaiC3+xh51KEtlyCwvWQwZ0xwKDrbMj+e15ANxjHrTw/0bJVaWDfPQt/Pw==
   dependencies:
-    "@vueuse/shared" "4.4.1"
-    vue-demi latest
+    "@vueuse/shared" "4.11.2"
+    vue-demi "*"
 
-"@vueuse/shared@4.4.1":
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-4.4.1.tgz#8963740d1b8a036933ae5c02b461b430430e2433"
-  integrity sha512-pY7bXgYaA9g25XNREE3zeuIWfOwbyiKeQ0IppE4nIRuro4gVGuLoV/BIU6D0VOTv7hYefv5eqE+WS03v61y8xA==
+"@vueuse/shared@4.11.2":
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-4.11.2.tgz#1d56e08937600e3e65abf76f27cb4a1bc182adfd"
+  integrity sha512-vTbTi6ou7ljH3CkKVoaIaCAoWB5T1ewSogpL6VnO1duMPNuiv7x8K/LunMbnTg4tVyt6QwaiCuEq/kyS6AUBRg==
   dependencies:
-    vue-demi latest
+    vue-demi "*"
 
 balanced-match@^1.0.0:
   version "1.0.0"
@@ -307,12 +312,10 @@ json5@^1.0.1:
   dependencies:
     minimist "^1.2.0"
 
-json5@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.0.tgz#2dfefe720c6ba525d9ebd909950f0515316c89a3"
-  integrity sha512-f+8cldu7X/y7RAJurMEJmdoKXGB/X550w2Nr3tTbezL6RwEE/iMcm+tZnXeoZtKuOq6ft8+CqzEkrIgx1fPoQA==
-  dependencies:
-    minimist "^1.2.5"
+jsonc-parser@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-3.0.0.tgz#abdd785701c7e7eaca8a9ec8cf070ca51a745a22"
+  integrity sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==
 
 loader-utils@^1.1.0:
   version "1.4.0"
@@ -366,7 +369,7 @@ minimatch@^3.0.4:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimist@^1.2.0, minimist@^1.2.3, minimist@^1.2.5:
+minimist@^1.2.0, minimist@^1.2.3:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
@@ -387,13 +390,6 @@ once@^1.3.0:
   integrity sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
   dependencies:
     wrappy "1"
-
-onigasm@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/onigasm/-/onigasm-2.2.5.tgz#cc4d2a79a0fa0b64caec1f4c7ea367585a676892"
-  integrity sha512-F+th54mPc0l1lp1ZcFMyL/jTs2Tlq4SqIHKIXGZOR/VkHkF9A7Fr5rRr5+ZG/lWeRsyrClLYRq7s/yFQ/XhWCA==
-  dependencies:
-    lru-cache "^5.1.1"
 
 path-is-absolute@^1.0.0:
   version "1.0.1"
@@ -516,13 +512,13 @@ shiki-renderer-svg@^0.10.1:
   resolved "https://registry.yarnpkg.com/shiki-renderer-svg/-/shiki-renderer-svg-0.10.1.tgz#aa6f0f446f1b3daf70399223c7ac8b0122f77525"
   integrity sha512-JCXEoDA+KLedKY/gU2zF3SlGFLVXtjYGw+rQ3O2lJvNlOSItJ1kAR25jR7RNEDxtexnhijla+MKAtRoGVUhsLQ==
 
-shiki@^0.9.4:
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/shiki/-/shiki-0.9.4.tgz#b9d59ad11770347216d356e402bfd48572c7ed40"
-  integrity sha512-6ldV9wgwRyx1yIDC20SBNq9Kza1aPaERDGd+R3oJxsv7KLkAq+ltGrxWVg4faGCg7V23/q9fzKeeSwAALQhIrA==
+shiki@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/shiki/-/shiki-0.10.1.tgz#6f9a16205a823b56c072d0f1a0bcd0f2646bef14"
+  integrity sha512-VsY7QJVzU51j5o1+DguUd+6vmCmZ5v/6gYu4vyYAhzjuNQU6P/vmSy4uQaOhvje031qQMiW0d2BwgMH52vqMng==
   dependencies:
-    json5 "^2.2.0"
-    onigasm "^2.2.5"
+    jsonc-parser "^3.0.0"
+    vscode-oniguruma "^1.6.1"
     vscode-textmate "5.2.0"
 
 shx@^0.3.3:
@@ -580,20 +576,27 @@ vite@^2.3.3:
   optionalDependencies:
     fsevents "~2.3.1"
 
+vscode-oniguruma@^1.6.1:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/vscode-oniguruma/-/vscode-oniguruma-1.6.2.tgz#aeb9771a2f1dbfc9083c8a7fdd9cccaa3f386607"
+  integrity sha512-KH8+KKov5eS/9WhofZR8M8dMHWN2gTxjMsG4jd04YhpbPR91fUj7rYQ2/XjeHCJWbg7X++ApRIU9NUwM2vTvLA==
+
 vscode-textmate@5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/vscode-textmate/-/vscode-textmate-5.2.0.tgz#01f01760a391e8222fe4f33fbccbd1ad71aed74e"
   integrity sha512-Uw5ooOQxRASHgu6C7GVvUxisKXfSgW4oFlO+aa+PAkgmH89O3CXxEEzNRNtHSqtXFTl0nAC1uYj0GMSH27uwtQ==
 
-vue-demi@latest:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.7.3.tgz#463188044d31d33985e67da51f315b447a1fed85"
-  integrity sha512-vrzM26H4CZCXBf/eu4T8nks6o7qgziYM52myk8bg+atw4qYqpeWJf5c82W8VdmgGfSIdh9ulOOe9+GeLc3Z/8A==
+vue-demi@*:
+  version "0.12.5"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.12.5.tgz#8eeed566a7d86eb090209a11723f887d28aeb2d1"
+  integrity sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q==
 
-vue-router@4:
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.6.tgz#91750db507d26642f225b0ec6064568e5fe448d6"
-  integrity sha512-Y04llmK2PyaESj+N33VxLjGCUDuv9t4q2OpItEGU7POZiuQZaugV6cJpE6Qm1sVFtxufodLKN2y2dQl9nk0Reg==
+vue-router@4.0.14:
+  version "4.0.14"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.0.14.tgz#ce2028c1c5c33e30c7287950c973f397fce1bd65"
+  integrity sha512-wAO6zF9zxA3u+7AkMPqw9LjoUCjSxfFvINQj3E/DceTt6uEz1XZLraDhdg2EYmvVwTBSGlLYsUw8bDmx0754Mw==
+  dependencies:
+    "@vue/devtools-api" "^6.0.0"
 
 vue@^3.0.5:
   version "3.0.7"

@@ -15,7 +15,7 @@
     "file-saver": "^2.0.5",
     "lz-string": "^1.4.4",
     "shiki": "^0.10.1",
-    "shiki-renderer-svg": "^0.9.4",
+    "shiki-renderer-svg": "^0.10.1",
     "vue": "^3.0.5",
     "vue-router": "4.0.14",
     "vuex": "^4.0.0"

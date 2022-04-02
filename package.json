@@ -18,7 +18,7 @@
     "shiki-renderer-svg": "^0.10.1",
     "vue": "^3.0.5",
     "vue-router": "4.0.14",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.1"
   },
   "devDependencies": {
     "@types/dom-to-image": "^2.6.2",

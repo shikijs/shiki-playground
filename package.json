@@ -10,7 +10,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@vueuse/core": "^4.4.1",
+    "@vueuse/core": "^4.11.2",
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.5",
     "lz-string": "^1.4.4",
